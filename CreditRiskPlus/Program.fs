@@ -8,6 +8,8 @@ open System.Drawing
 open System.Windows.Forms
 open Accord.Math
 open MathNet.Numerics.IntegralTransforms
+open Deedle.Frame
+open System.Windows.Forms.DataVisualization.Charting
 
 type TFA = float->float->float
     
@@ -25,9 +27,9 @@ let main argv =
         Name|PD|Exposure|LGD
     *)
     let getPD()=
-            rng.NextDouble()*0.25+ 0.01
+            0.1
     let getAeaD()=
-        rng.NextDouble()*1000.0+500.0
+        1500.0*rng.NextDouble()+1000.0
     let nobligors = 150
     let nameseries= series [for n in 0 .. nobligors do yield n => n.ToString() ]
     let PDseries = series  [for n in 0 .. nobligors do yield n => getPD()]
@@ -80,8 +82,8 @@ let main argv =
 
     
   
-    let ndefaults = 30
-    let nsamples = int(2.0**10.0)
+    let ndefaults = 60
+    let nsamples = int(2.0**11.0)
     let Glm = bands |> Seq.map(fun v ->                                                 
                                                 let losses = Array.zeroCreate<float> nsamples 
                                                 let frame = gframe.Rows.[int(v),*]
@@ -98,12 +100,15 @@ let main argv =
                     |> Seq.reduce(fun a b -> a |> Array.mapi(fun i x -> b.[i]*x )) 
                     |> ifft
                                                
-    let density = convL |> Array.mapi(fun n x -> float(n),(Complex.realPart(x)))
-    let arrr = density |> Seq.map(fun (a,b) ->  sprintf "%f %f" a b) |> Array.ofSeq
-    let strr = System.String.Join("\n", arrr)
-    //printfn "%s" strr
+    let density = convL |> Array.mapi(fun n x -> float(n)*qL,Complex.realPart(x))
+    let summ = density |> Seq.mapi(fun n (ll,a) -> ll, (density.[0 .. n] |>Array.sumBy(fun (_,b) -> b)))
+    summ |> Seq.iter(fun (a,b) -> let str = System.String.Format("{0},{1}",a,b) 
+                                  printfn "%s" str)
 
-    let plot = Chart.Combine([ Chart.Line(density.[0 .. ],Name="Income")])
+    let q = 0.99
+    let loss9997 = summ |> Seq.map(fun (n,v) -> n,Math.Abs(v-q)) |> Seq.minBy(fun (_,x) -> x)
+    printfn "%f loss is %A" q (float(loss9997 |> fst))
+    let plot = Chart.Combine([ Chart.Line(density.[0 .. ],Name="Income"); Chart.Line(Array.init(5)(fun k -> loss9997 |> fst,0.001*float(k)),Name=q.ToString())])
     
     let myChartControl = new ChartControl(plot, Dock=DockStyle.Fill)
     let form = new Form(Visible = true, TopMost = true, Width = 700, Height = 500)
