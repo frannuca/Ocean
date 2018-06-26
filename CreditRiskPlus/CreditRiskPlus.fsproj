@@ -84,6 +84,7 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="commons.fs" />
     <Compile Include="PoissonFixed.fs" />
+    <Compile Include="PoissonGamma.fs" />
     <Compile Include="Program.fs" />
     <Content Include="packages.config" />
   </ItemGroup>
