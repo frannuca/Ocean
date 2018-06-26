@@ -106,11 +106,11 @@ module PoissonGamma=
    
             VaR |> Array.iter(fun (l,q) -> printfn "loss %f for quantile %f" l q)
 
-            //let chartsforquantiles =
-            //                            VaR |> Array.map(fun (l,q) ->
-            //                                                        Chart.Line(Array.init(5)(fun k -> l, 0.001*float(k)),Name=q.ToString())
-            //                                                        )
+            let chartsforquantiles =
+                                        VaR |> Array.map(fun (l,q) ->
+                                                                    Chart.Line(Array.init(5)(fun k -> l, 0.001*float(k)),Name=q.ToString())
+                                                                    )
 
-            Array.concat([[|Chart.Line(density.[0 ..  ] ,Name="Income")|]])
+            Array.concat([[|Chart.Line(density.[0 ..  ] ,Name="Income")|];chartsforquantiles])
             
 
