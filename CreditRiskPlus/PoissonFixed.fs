@@ -94,5 +94,5 @@ module APoisson=
                                                                     Chart.Line(Array.init(5)(fun k -> l, 0.001*float(k)),Name=q.ToString()+"F")
                                                                     )
 
-            Array.concat([[|Chart.Line(density.[0 ..  ] ,Name="Income_fixed")|];chartsforquantiles])
+            Array.concat([[|Chart.Line(density.[0 .. 256 ] ,Name="Income_fixed")|];chartsforquantiles])
             

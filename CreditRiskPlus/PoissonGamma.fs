@@ -111,6 +111,6 @@ module PoissonGamma=
                                                                     Chart.Line(Array.init(5)(fun k -> l, 0.001*float(k)),Name=q.ToString())
                                                                     )
 
-            Array.concat([[|Chart.Line(density.[0 ..  ] ,Name="Income")|];chartsforquantiles])
+            Array.concat([[|Chart.Line(density.[0 .. 256  ] ,Name="Income")|];chartsforquantiles])
             
 
