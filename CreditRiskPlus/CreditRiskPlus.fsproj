@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="commons.fs" />
+    <Compile Include="Data.fs" />
     <Compile Include="PoissonFixed.fs" />
     <Compile Include="PoissonGamma.fs" />
     <Compile Include="Program.fs" />
