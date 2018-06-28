@@ -23,18 +23,18 @@ let main argv =
     let getAeaD()=
        15.0*rng.NextDouble()+1.0
 
-    let nobligors = 150
+    let nobligors = 1500
     let nameseries= [|for n in 0 .. nobligors do yield  n.ToString() |]
     let PDseries =  [|for n in 0 .. nobligors do yield  getPD()|]
     let AEaDseries =[|for n in 0 .. nobligors do yield  getAeaD()|]
     let LGDseries = [|for n in 0 .. nobligors do yield  1.0|]
-    let sigmas = [|for n in 0 .. nobligors do yield  rng.NextDouble()*0.06+0.01|]
+    let sigmas = [|for n in 0 .. nobligors do yield  rng.NextDouble()*0.01|]
 
     let data = {PortfolioData.Id=nameseries;LGD=LGDseries;E=AEaDseries;PD=PDseries;Sigma=Some(sigmas)}
     let qL = 1.0
    
-    let charts1 = CreditRiskPlus.APoisson.run(data,qL)
-    let charts2 = CreditRiskPlus.PoissonGamma.run(data,qL)
+    let charts1 = CreditRiskPlus.APoisson.run(data,qL,3000)
+    let charts2 = CreditRiskPlus.PoissonGamma.run(data,qL,3000)
     let plot = Chart.Combine(Array.concat([|charts1;charts2|]))
     
     let myChartControl = new ChartControl(plot, Dock=DockStyle.Fill)

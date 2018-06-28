@@ -52,7 +52,7 @@ module PoissonGamma=
             {Commons.VaRResult.DENSITY=density; Commons.VaRResult.ValueAtRisk=vars|> Array.ofSeq}
     
     
-    let run(data:PortfolioData,qL:float)=
+    let run(data:PortfolioData,qL:float,nsamples:int)=
                 
                       
             let portfolio= GenerateFrame(data)(qL)
@@ -60,7 +60,7 @@ module PoissonGamma=
                 
             let poissonfixed = new PoissonMixture(portfolio)
             let qs = [|0.99;0.999;0.9997|]
-            let {DENSITY=density;ValueAtRisk=VaR} = poissonfixed.Compute(1024,qs)
+            let {DENSITY=density;ValueAtRisk=VaR} = poissonfixed.Compute(nsamples,qs)
    
             VaR |> Array.iter(fun (l,q) -> printfn "loss %f for quantile %f" l q)
 
