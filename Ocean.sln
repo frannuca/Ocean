@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NumIntegration", "NumIntegration\NumIntegration.fsproj", "{81A035B8-2D9E-4431-A7DD-370FC7F15E31}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CreditRiskPlus", "CreditRiskPlus\CreditRiskPlus.fsproj", "{FDD7246B-5425-4BE8-B72B-912C10245E68}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "OptimizationCore", "Optimizer\OptimizationCore.fsproj", "{F3C139B6-CF7F-4877-A645-8B1FCC27F94A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,15 @@ Global
 		{FDD7246B-5425-4BE8-B72B-912C10245E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDD7246B-5425-4BE8-B72B-912C10245E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDD7246B-5425-4BE8-B72B-912C10245E68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3C139B6-CF7F-4877-A645-8B1FCC27F94A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3C139B6-CF7F-4877-A645-8B1FCC27F94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3C139B6-CF7F-4877-A645-8B1FCC27F94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3C139B6-CF7F-4877-A645-8B1FCC27F94A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64254E33-ADB9-4913-9ABC-42B238804AB5}
 	EndGlobalSection
 EndGlobal
