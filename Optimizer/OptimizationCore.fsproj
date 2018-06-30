@@ -59,6 +59,7 @@
     <Compile Include="IOptimizer.fs" />
     <Compile Include="Differentiation.fs" />
     <Compile Include="Gene.fs" />
+    <Compile Include="Chromosome.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
     <Compile Include="Program.fs" />

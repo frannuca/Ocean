@@ -18,4 +18,14 @@ let main argv =
     let gen = new Gene(0.0,100.0,5)
     let aa = gen.SetNumber(73.0)
     let bb = gen.GetFloat()
+
+    let chromobld = new ChromosomeBuilder()
+    let chromo=
+                chromobld
+                    .WithParameter(0.0,1200.0,30,Some(324.9))
+                    .WithParameter(0.0,50.0,30,Some(25.0))
+                    .WithParameter(-110.0,10.0,30,Some(-25.0))
+                    .Build()
+    let vchromo = chromo.GetVector()
+
     0 // return an integer exit code
