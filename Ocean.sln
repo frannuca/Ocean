@@ -9,6 +9,11 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CreditRiskPlus", "CreditRis
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "OptimizationCore", "Optimizer\OptimizationCore.fsproj", "{F3C139B6-CF7F-4877-A645-8B1FCC27F94A}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TreeGA", "TreeGA\TreeGA.fsproj", "{EFE5C0E6-00C0-43BD-B2BA-954E6E6F6A23}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F3C139B6-CF7F-4877-A645-8B1FCC27F94A} = {F3C139B6-CF7F-4877-A645-8B1FCC27F94A}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +32,10 @@ Global
 		{F3C139B6-CF7F-4877-A645-8B1FCC27F94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3C139B6-CF7F-4877-A645-8B1FCC27F94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3C139B6-CF7F-4877-A645-8B1FCC27F94A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFE5C0E6-00C0-43BD-B2BA-954E6E6F6A23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFE5C0E6-00C0-43BD-B2BA-954E6E6F6A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFE5C0E6-00C0-43BD-B2BA-954E6E6F6A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFE5C0E6-00C0-43BD-B2BA-954E6E6F6A23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

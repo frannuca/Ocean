@@ -1,6 +1,7 @@
 ﻿namespace OptimizationCore
+namespace Differenciation
 
-module Differentiation=
+module Operators=
     open MathNet.Numerics.LinearAlgebra
 
     let Grad(x0:float array,dx:float array)(f:float[] -> float)=

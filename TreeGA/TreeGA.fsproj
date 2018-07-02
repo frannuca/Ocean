@@ -5,15 +5,15 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>f3c139b6-cf7f-4877-a645-8b1fcc27f94a</ProjectGuid>
+    <ProjectGuid>efe5c0e6-00c0-43bd-b2ba-954e6e6f6a23</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Optimizer</RootNamespace>
-    <AssemblyName>Optimizer</AssemblyName>
+    <RootNamespace>TreeGA</RootNamespace>
+    <AssemblyName>TreeGA</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseStandardResourceNames>true</UseStandardResourceNames>
     <TargetFSharpCoreVersion>4.4.3.0</TargetFSharpCoreVersion>
-    <Name>OptimizationCore</Name>
+    <Name>TreeGA</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,14 +56,11 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="IOptimizer.fs" />
-    <Compile Include="Differentiation.fs" />
-    <Compile Include="Gene.fs" />
-    <Compile Include="Chromosome.fs" />
-    <Compile Include="Population.fs" />
+    <Compile Include="DependencyTree.fs" />
+    <Compile Include="TreeGA.fs" />
+    <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
-    <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MathNet.Numerics">
@@ -83,6 +80,13 @@
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Optimizer\OptimizationCore.fsproj">
+      <Name>OptimizationCore</Name>
+      <Project>{f3c139b6-cf7f-4877-a645-8b1fcc27f94a}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
