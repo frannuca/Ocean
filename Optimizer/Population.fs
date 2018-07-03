@@ -17,3 +17,6 @@ type Population(popsize:int,chromoprototype:Chromosome)=
                                         {chromo with FITNESS= chromo.CHROMOSOME.GetVector() |> pfunc}
                                     )
         population <- (newpop |> Array.sortBy(fun c -> c.FITNESS))
+
+    override this.ToString()=
+        System.String.Join("\n",population|>Array.map(fun item -> item.CHROMOSOME.ToString()+"|"+item.FITNESS.ToString()))

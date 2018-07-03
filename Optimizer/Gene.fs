@@ -43,3 +43,6 @@ type Gene(minlevel:float,maxlevel:float,nbit:int,genval:float option)=
 
     member self.BitSize
         with get()=bits.Length
+
+    override this.ToString()=
+        System.String.Join("",bits |> Array.map(fun b -> if b then 1 else 0) )

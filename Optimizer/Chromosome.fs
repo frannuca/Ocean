@@ -27,6 +27,9 @@ type Chromosome(chr:Gene seq)=
         member self.BitSize
             with get() = chromo |> Array.map(fun g -> g.BitSize) |> Array.sum
 
+        override this.ToString()=
+            System.String.Join(",", chromo |> Seq.map(fun b -> b.ToString()) |> Array.ofSeq )
+
 type ChromosomeBuilder()=
     let mutable chromo: Gene list = []
 

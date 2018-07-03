@@ -2,7 +2,6 @@
 open Deedle
 open MathNet.Numerics
 open FSharp.Charting
-open FSharp.Charting
 open FSharp.Charting.ChartTypes
 open System.Drawing
 open System.Windows.Forms

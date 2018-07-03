@@ -6,6 +6,7 @@ open System
 type Node(id:int)=
     let children = new System.Collections.Generic.List<Node>()
     let mutable parent:Node option = None
+    let mutable bestMatch:(Node*float) option = None
     member self.ID = id
     member self.Children = children
     member self.Parent 
@@ -21,54 +22,33 @@ type Node(id:int)=
             listofnodes.Add(n)
             n.Children |> Seq.iter(fun c -> queue.Enqueue(c))
         listofnodes
+    member self.BestMatch
+        with get() = bestMatch
+        and set(value) = bestMatch<-value
 
     
-type LinkProb(c:float,preduction:float,inctree:float)=
+module Tree=
+    let InsertParentChild(root:Node)(parent:Node,child:Node)=
+        
+        let nodes = root.ListOfNodes |>List.ofSeq
+        let iparent = parent.ID
+        let ichild = child.ID
+        
+        match nodes |> List.filter(fun n -> n.ID=ichild) with
+        |[] -> 
+               parent.Children.Add(child)
+               child.Parent<-Some(parent)
 
-    let mutable  counter00 = c
-    let mutable  counter01 = c
-    let mutable  counter10 = c
-    let mutable  counter11 = c
+        |[x] -> let oldparent = x.Parent
+                            
+                if oldparent.IsSome then oldparent.Value.Children.Remove(x) |>ignore
+                x.Parent <- Some(parent)
+                parent.Children.Add(x)
 
-    member self.P00 
-        with  get() = counter00/(counter00+counter01+counter10+counter11)
+        |_ -> failwith "tree node duplication"
 
-    member self.P01
-        with get() = counter01/(counter00+counter01+counter10+counter11)
-
-    member self.P10
-        with get() = counter10/(counter00+counter01+counter10+counter11)
-
-    member self.P11
-        with get() = counter11/(counter00+counter01+counter10+counter11)
-
-    
-    member self.P(bit1:bool,conditionBit2:bool)=
-        match bit1,conditionBit2 with
-        |(false,false) -> let a = self.P00/(self.P00+self.P10)
-                          a
-        |(true,false)  -> let a = self.P10/(self.P00+self.P10)
-                          a
-        |(false,true)  -> let a = self.P01/(self.P01+self.P11)
-                          a
-        |(true,true)  -> let a = self.P11/(self.P11+self.P11)
-                         a
-
-    member self.Info
-        with get()= self.P00 * Math.Log(self.P00/((self.P00+self.P01)*(self.P00+self.P10)))+
-                    self.P01 * Math.Log(self.P01/((self.P00+self.P01)*(self.P01+self.P11)))+
-                    self.P10 * Math.Log(self.P10/((self.P10+self.P11)*(self.P00+self.P10)))+
-                    self.P11 * Math.Log(self.P11/((self.P10+self.P11)*(self.P01+self.P11)))
-
-    
-    member self.Update(x0:bool,x1:bool)=
-        counter00 <- counter00 * preduction
-        counter01 <- counter01 * preduction
-        counter10 <- counter10 * preduction
-        counter11 <- counter11 * preduction
-
-        match x0,x1 with
-        |(false,false) ->  counter00 <- counter00 + inctree
-        |(false,true)  ->  counter01 <- counter01 + inctree
-        |(true,false)  ->  counter10 <- counter10 + inctree
-        |(true,true)   ->  counter11 <- counter11 + inctree
+    let GetNode(root:Node)(id:int)=
+        match root.ListOfNodes |> Seq.filter(fun n -> n.ID = id) |> List.ofSeq with
+        |[x] -> Some(x)
+        |[] -> None
+        | _ -> failwith "duplicated node"
