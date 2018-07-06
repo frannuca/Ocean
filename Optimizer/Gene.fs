@@ -3,6 +3,7 @@ namespace GA
 
 open System.Collections
 open MathNet.Numerics
+open System
 
 
 type Gene(minlevel:float,maxlevel:float,nbit:int,genval:float option)=
@@ -58,3 +59,7 @@ type Gene(minlevel:float,maxlevel:float,nbit:int,genval:float option)=
         | :? Gene as p -> self.GetInt() = p.GetInt()
         | _ -> false
           
+    member self.Mutate()=        
+        let i = rnd.Next(0,bits.Length-1)
+        bits.[i] <- not(bits.[i])
+        

@@ -24,7 +24,7 @@ let main argv =
     let fitness (x:float[]) = 10.0 + ([0 .. x.Length-1] |> Seq.map(fun i -> x.[i]**2.0- 10.0 * System.Math.Cos(2.0* System.Math.PI*x.[i])) |> Seq.sum)
     let popsize = 100
     let elitism = 10
-    let pmutation = 0.01
+    let pmutation = 0.05
     let Cinit = 5000.0
     let preduction = 0.97
     let incTree = 0.5
@@ -40,7 +40,7 @@ let main argv =
 
 
 
-    printfn "Finished \n %A " (treeGA.GetBest())
+    printfn "Finished  number of iter %A \n %A " !counter  (treeGA.GetBest())
        
 
         

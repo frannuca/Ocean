@@ -19,6 +19,8 @@ type TreeGA(popSize:int,elitism:int,pmutation:float,fitness:float array->float,
     let rnd = new MathNet.Numerics.Random.MersenneTwister(639)
     
     let mutable population = new Population(popSize,chromo)
+    do population.EvalPopulation(fitness);
+        
     let mutable populationstdev = System.Double.MaxValue
     
     let bestchromo:PopulationItem option = None
@@ -42,6 +44,9 @@ type TreeGA(popSize:int,elitism:int,pmutation:float,fitness:float array->float,
                     else 
                         false
 
+    let mutate()=
+        [0 .. population.Size-1] 
+        |> List.iter(fun i -> if rnd.NextDouble() < pmutation then population.[i].CHROMOSOME.Mutate())
 
     member self.PopSize = popSize
     member self.Elitism = elitism
@@ -55,11 +60,8 @@ type TreeGA(popSize:int,elitism:int,pmutation:float,fitness:float array->float,
             fitnessvector.[fitnessvector.Count-1].CHROMOSOME.GetVector(),fitnessvector.[fitnessvector.Count-1].FITNESS
 
     member self.Next()=
-        population.EvalPopulation(fitness)
-        populationstdev <- population.Stdev()
-             
-      
-        fitnessvector.Add(population.[0])
+        let oldpop = population
+
         //build dependency tree:Fill
         let tree = FillTree()
         printfn "%A" population
@@ -77,10 +79,10 @@ type TreeGA(popSize:int,elitism:int,pmutation:float,fitness:float array->float,
                             linkage.Update(i,j,bit_i,bit_j)
             )
         |>ignore
-                               
+             
         //
         //generate new population
-        let oldpop = population
+
         population <- new Population(popSize,chromo)
 
         for i in 0 .. population.Size-1 do
@@ -98,11 +100,15 @@ type TreeGA(popSize:int,elitism:int,pmutation:float,fitness:float array->float,
                                         ) 
         
             sschromo.CHROMOSOME.SetBits(vbit)
-    //re-insert elite chromosomes
+        
+        //mutate()
+        //re-insert elite chromosomes
         [0 .. elitism-1]
         |> Seq.iter(fun i -> population.[i].CHROMOSOME.SetBits(oldpop.[i].CHROMOSOME.Bits))
-    
-    
+            
+        population.EvalPopulation(fitness)
+        fitnessvector.Add(population.[0])
+        
         
     member self.Stdev
         with get() = populationstdev

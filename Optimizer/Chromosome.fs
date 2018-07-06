@@ -41,7 +41,9 @@ type Chromosome(chr:Gene seq)=
                                     |> Array.mapi(fun i b -> p.Bits.[i]=b)
                                     |> Array.forall(fun x -> x)
             | _ -> false
-          
+        
+        member self.Mutate() =            
+            chromo |> Array.iter(fun c-> c.Mutate())
 
 
 type ChromosomeBuilder()=
