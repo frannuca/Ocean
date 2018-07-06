@@ -29,13 +29,16 @@ type Gene(minlevel:float,maxlevel:float,nbit:int,genval:float option)=
     member self.SetNumber = setNumber
 
     member self.SetBit(arr) = 
-                                bits <- arr
+          bits <- arr
 
     member self.SpawnAnotherGene()=
         new Gene(minlevel,maxlevel,nbit,Some(minlevel+ rnd.NextDouble()*dx))
-
+  
+    member self.GetInt()=
+        bits |> Array.mapi(fun i x -> if x then (pown 2 i) else 0 ) |> Array.sum
+   
     member self.GetFloat()=
-        let x = bits |> Array.mapi(fun i x -> if x then (pown 2 i) else 0 ) |> Array.sum |> float
+        let x = self.GetInt() |> float
         minlevel+ x/float(mxint)*dx
     
     member self.Bits
@@ -46,3 +49,12 @@ type Gene(minlevel:float,maxlevel:float,nbit:int,genval:float option)=
 
     override this.ToString()=
         System.String.Join("",bits |> Array.map(fun b -> if b then 1 else 0) )
+
+    override self.GetHashCode() =
+        self.GetInt()
+ 
+    override self.Equals(b) =
+        match b with
+        | :? Gene as p -> self.GetInt() = p.GetInt()
+        | _ -> false
+          

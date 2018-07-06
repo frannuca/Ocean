@@ -30,6 +30,20 @@ type Chromosome(chr:Gene seq)=
         override this.ToString()=
             System.String.Join(",", chromo |> Seq.map(fun b -> b.ToString()) |> Array.ofSeq )
 
+        override self.GetHashCode() =
+            hash (chromo |> Array.map(fun x -> x.GetInt().ToString()) |> Array.fold(fun a b -> a+b) "")
+            
+ 
+        override self.Equals(b) =
+            match b with
+            | :? Chromosome as p -> self.Bits.Length = p.Bits.Length && 
+                                    self.Bits 
+                                    |> Array.mapi(fun i b -> p.Bits.[i]=b)
+                                    |> Array.forall(fun x -> x)
+            | _ -> false
+          
+
+
 type ChromosomeBuilder()=
     let mutable chromo: Gene list = []
 
@@ -42,5 +56,4 @@ type ChromosomeBuilder()=
 
     member self.Build()=
         new Chromosome(chromo)
-        
         

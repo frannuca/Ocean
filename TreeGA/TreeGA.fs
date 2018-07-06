@@ -19,7 +19,8 @@ type TreeGA(popSize:int,elitism:int,pmutation:float,fitness:float array->float,
     let rnd = new MathNet.Numerics.Random.MersenneTwister(639)
     
     let mutable population = new Population(popSize,chromo)
-            
+    let mutable populationstdev = System.Double.MaxValue
+    
     let bestchromo:PopulationItem option = None
     let FillTree()=
             let allnodes = [0 .. chromo.BitSize - 1] |> Seq.map(fun i -> new Node(i)) |> Array.ofSeq
@@ -50,8 +51,14 @@ type TreeGA(popSize:int,elitism:int,pmutation:float,fitness:float array->float,
     member self.GetHistoryBest()=
         fitnessvector |> Seq.map(fun f -> f.CHROMOSOME.GetVector(),f.FITNESS) |> Array.ofSeq
 
+    member self.GetBest()=
+            fitnessvector.[fitnessvector.Count-1].CHROMOSOME.GetVector(),fitnessvector.[fitnessvector.Count-1].FITNESS
+
     member self.Next()=
         population.EvalPopulation(fitness)
+        populationstdev <- population.Stdev()
+             
+      
         fitnessvector.Add(population.[0])
         //build dependency tree:Fill
         let tree = FillTree()
@@ -97,7 +104,15 @@ type TreeGA(popSize:int,elitism:int,pmutation:float,fitness:float array->float,
     
     
         
-            
+    member self.Stdev
+        with get() = populationstdev
+
+    member self.NDiff
+        with get() = population.NChromoDifferent()
+
+
+        
+
 
 
         

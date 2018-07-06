@@ -10,19 +10,37 @@ open GA
 let main argv = 
     printfn "%A" argv
 
-    
-    let chromo = (new ChromosomeBuilder()).WithParameter(-5.12,5.12,12,None)
-                                          .WithParameter(-5.12,5.12,12,None)
-                                          .WithParameter(-5.12,5.12,12,None)                                       
+    let chromo = (new ChromosomeBuilder()).WithParameter(-5.12,5.12,14,None)
+                                          .WithParameter(-5.12,5.12,14,None)
+                                          .WithParameter(-5.12,5.12,14,None)                                       
+                                          .WithParameter(-5.12,5.12,14,None)                                       
+                                          .WithParameter(-5.12,5.12,14,None)                                       
+                                          .WithParameter(-5.12,5.12,14,None)                                       
+                                          .WithParameter(-5.12,5.12,14,None)                                       
+                                          .WithParameter(-5.12,5.12,14,None)                                       
+                                          .WithParameter(-5.12,5.12,14,None)                                       
                                           .Build()
 
     let fitness (x:float[]) = 10.0 + ([0 .. x.Length-1] |> Seq.map(fun i -> x.[i]**2.0- 10.0 * System.Math.Cos(2.0* System.Math.PI*x.[i])) |> Seq.sum)
-    
-    let treeGA = new TreeGA(100,10,0.01,fitness,5000.0,0.97,0.5,chromo)
+    let popsize = 100
+    let elitism = 10
+    let pmutation = 0.01
+    let Cinit = 5000.0
+    let preduction = 0.97
+    let incTree = 0.5
+    let treeGA = new TreeGA(popsize,elitism,pmutation,fitness,Cinit,preduction,incTree,chromo)
 
-    let fitnessvec = [|0 .. 100|] |> Array.map(fun n -> treeGA.Next()) |> Array.ofSeq
+    let counter = ref 0
+    let convergencereached = ref false
+    while !counter < 1000 && not(!convergencereached) do
+        treeGA.Next()
+        counter := !counter + 1
+        let h = treeGA.NDiff
+        convergencereached := System.Math.Abs(h)< 0.01*(float)popsize
 
-    printfn "%A" (treeGA.GetHistoryBest())
+
+
+    printfn "Finished \n %A " (treeGA.GetBest())
        
 
         
