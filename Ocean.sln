@@ -14,6 +14,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TreeGA", "TreeGA\TreeGA.fsp
 		{F3C139B6-CF7F-4877-A645-8B1FCC27F94A} = {F3C139B6-CF7F-4877-A645-8B1FCC27F94A}
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HierarchyAllocation", "HierarchyAllocation\HierarchyAllocation.fsproj", "{9D156E5C-B41B-476D-9BAA-02E4E13E0AF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{EFE5C0E6-00C0-43BD-B2BA-954E6E6F6A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFE5C0E6-00C0-43BD-B2BA-954E6E6F6A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFE5C0E6-00C0-43BD-B2BA-954E6E6F6A23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D156E5C-B41B-476D-9BAA-02E4E13E0AF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D156E5C-B41B-476D-9BAA-02E4E13E0AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D156E5C-B41B-476D-9BAA-02E4E13E0AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D156E5C-B41B-476D-9BAA-02E4E13E0AF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
