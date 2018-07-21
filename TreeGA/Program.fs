@@ -16,9 +16,7 @@ let main argv =
                                           .WithParameter(-5.12,5.12,14,None)                                       
                                           .WithParameter(-5.12,5.12,14,None)                                       
                                           .WithParameter(-5.12,5.12,14,None)                                       
-                                          .WithParameter(-5.12,5.12,14,None)                                       
-                                          .WithParameter(-5.12,5.12,14,None)                                       
-                                          .WithParameter(-5.12,5.12,14,None)                                       
+                                          .WithParameter(-5.12,5.12,14,None)                                                                                                                    
                                           .Build()
 
     let fitness (x:float[]) = 10.0 + ([0 .. x.Length-1] |> Seq.map(fun i -> x.[i]**2.0- 10.0 * System.Math.Cos(2.0* System.Math.PI*x.[i])) |> Seq.sum)

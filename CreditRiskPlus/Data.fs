@@ -3,7 +3,8 @@ namespace CreditRiskPlus
 module Data=
     open Deedle
     open MathNet.Numerics.Distributions
-    
+    type POINT = {LOSS:float;PROBD:float}
+        
     type PortfolioData={Id:string array;PD:float array;E:float array;LGD:float array;Sigma:float array option}
     
     type PortfolioColumns=

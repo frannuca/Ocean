@@ -3,11 +3,11 @@
 open System
 open Deedle
 open MathNet.Numerics
-open FSharp.Charting
-open FSharp.Charting
-open FSharp.Charting.ChartTypes
-open System.Drawing
-open System.Windows.Forms
+//open FSharp.Charting
+//open FSharp.Charting
+//open FSharp.Charting.ChartTypes
+//open System.Drawing
+//open System.Windows.Forms
 open Accord.Math
 open MathNet.Numerics.IntegralTransforms
 open Commons
@@ -60,15 +60,15 @@ module PoissonGamma=
                 
             let poissonfixed = new PoissonMixture(portfolio)
             let qs = [|0.99;0.999;0.9997|]
-            let {DENSITY=density;ValueAtRisk=VaR} = poissonfixed.Compute(nsamples,qs)
-   
+            let r = poissonfixed.Compute(nsamples,qs)
+            let {DENSITY=_;ValueAtRisk=VaR} = r
             VaR |> Array.iter(fun (l,q) -> printfn "loss %f for quantile %f" l q)
-
-            let chartsforquantiles =
-                                        VaR |> Array.map(fun (l,q) ->
-                                                                    Chart.Line(Array.init(5)(fun k -> l, 0.001*float(k)),Name=q.ToString())
-                                                                    )
-
-            Array.concat([[|Chart.Line(density.[0 ..   ] ,Name="Income")|];chartsforquantiles])
-            
+            r
+//            let chartsforquantiles =
+//                                        VaR |> Array.map(fun (l,q) ->
+//                                                                    Chart.Line(Array.init(5)(fun k -> l, 0.001*float(k)),Name=q.ToString())
+//                                                                    )
+//
+//            Array.concat([[|Chart.Line(density.[0 ..   ] ,Name="Income")|];chartsforquantiles])
+//            
 
